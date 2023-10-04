@@ -16,10 +16,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val redButton get() = binding.redButton as Button
-    private val blueButton get() = binding.blueButton
+    private val redButton get() = binding.redButton
+
     private val tinyYellowButton get() = binding.tinyYellowButton
-    private val superSecretView get() = binding.SUPERSECRETPOWERLEVELVIEW
+
     private val sharedPref: SharedPreferences by lazy {
         getPreferences(MODE_PRIVATE)
     }
@@ -38,10 +38,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
         redButton.setOnClickListener { congratulations() }
-        blueButton.setOnClickListener { blueButtonClicked() }
         tinyYellowButton.setOnClickListener { tinyButtonClicked() }
         tinyYellowButton.setOnLongClickListener { tinyButtonLongClicked() }
-        superSecretView.setOnClickListener { unclickableButton() }
+
     }
 
     /**
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun blueButtonClicked() {
         // Reveal true color
-        blueButton.setBackgroundColor(resources.getColor(R.color.blue))
+
 
         // Save state
         with (sharedPref.edit()) {
@@ -144,13 +143,7 @@ class MainActivity : AppCompatActivity() {
         val redButtonShown = sharedPref.getBoolean(getString(R.string.red_button_shown_key), defaultValue)
 
         // Only update the color of the Blue button if it is visible
-        if (blueButton.visibility == View.VISIBLE) {
-            if (!blueButtonShown) {
-                blueButton.backgroundTintList = ColorStateList.valueOf(redColor)
-            } else {
-                blueButton.backgroundTintList = ColorStateList.valueOf(blueColor)
-            }
-        }
+
 
         if (redButtonShown) {
             tinyYellowButton.visibility = View.GONE
